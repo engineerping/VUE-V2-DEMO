@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- X-UA-Compatible 是针对 IE8 版本的一个特殊文件头标记，用于为 IE8 指定不同的页面渲染模式, 对于IE8之外的浏览器是不识别的 -->
+    <!-- IE=Edge 是通知 Windows Internet Explorer 以最高级别的可用模式显示内容，这实际上破坏了“锁定”模式。即如果你有IE9的话说明你有IE789，那么就调用高版本的那个也就是IE9 -->
+    <!-- chrome=1 是说如果IE有安装Google Chrome Frame，那么就走安装的组件，如果没有就和<meta http-equiv="X-UA-Compatible" content="edge" />一样。 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <title>Document</title>
 </head>
 <body>
