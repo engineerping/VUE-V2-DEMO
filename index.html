@@ -15,6 +15,7 @@
     <div id="app">
         <h1> {{name}}, 非常棒, 有{{num}}个人为他点赞 </h1>
         <input type="text" v-model="num">
+        <button v-on:click="num++">点赞</button>
     </div>
 
     <!-- 引入 VUE库 的 js 文件, 这./node_modules/及其中的文件, 是执行 npm install vue 所生成的 -->
@@ -32,6 +33,13 @@
         });
 
         // 2. v-model 双向绑定成功(底层是使用发布/订阅模式)
+
+        // 3. v-on:xxx 事件处理
+            // "v-on:xxx" 就是指令
+
+        // 4. 总结:
+            // 1. 创建 vue 实例, 用 vue 实例管理 页面的模板即页面上的Dom元素, 将自己的数据(data)渲染到关联的模板.
+            // 2. 用"v-on:xxx" 就是指令来简化对 dom 的一些操作.
     </script>
 </body>
 </html>
