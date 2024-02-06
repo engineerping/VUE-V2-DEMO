@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <!-- 这是要展示在页面上的 html 标签 -->
+    <div id="app">
+        <h1> {{name}} , 非常棒 </h1>
+    </div>
+
+    <!-- 引入 VUE库 的 js 文件, 这./node_modules/及其中的文件, 是执行 npm install vue 所生成的 -->
+    <script src="./node_modules/vue/dist/vue.js"></script>
+
+    <!-- 使用 vue库 写业务代码 -->
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                name: "张三",
+            }
+        });
+    </script>
+</body>
+</html>
