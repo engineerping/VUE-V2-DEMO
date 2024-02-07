@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app">
+        {{msg}} <br/> <!-- 将1️以字符串显示 "<h1>Hello</h1>" ; 简单的插值字符串在网速慢数据未完全加载的时候, 出现 "插值闪烁问题"-->
+        <!-- v-html, v-text 不会出现 "插值闪烁问题" -->
+        <span v-html = "msg" ></span> <br/><!-- v-html 会对 html  "渲染" 成 html. 将显示 "Hello"-->
+        <span v-text = "msg" ></span> <br/><!-- v-text 会对 html  "转义" 成 text. 将显示 "<h1>Hello</h1>" -->
+        
+        <!--  1.插值字符串, v-html, v-text -->
+            <!-- 表达式: {{表达式}} -->
+            <!--  1.1.该表达式支持 JS 语法, 且可调用 js 内置函数(必须有返回值) -->
+            <!--  1.2.该表达 必须有返回结果,例如 "1 + 1"; 否则页面将导致整个页面不显示内容. 例如 "let a = 1+1"-->
+            <!--  1.3.可以直接调用  javascript 的内置函数 例如日期函数 new Date()-->
+            <!--  1.3.可以直接获取 Vue 实例中定义的 data 或 method-->
+        <span>{{msg}}, {{1+1}}, {{new Date()}}, {{hello()}}</span>
+        
+        <!-- 2. v-html 和  v-text 不会出现插值闪烁的问题-->
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                msg: "<h1>Hello</h1>",
+            },
+            methods: {
+                hello() {
+                    return "Hello world!";
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>
