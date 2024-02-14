@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app">
+        <!-- 1. 插值表达式只能用于标签体中, 而不能用于 标签的属性中; 要给标签的 属性绑定值, 要使用 v-bind -->
+        <!-- <a href="{{link}}"> 点击 </a> --> <!--这里会报错,插值表达式只能用于标签体中, 而不能用于 标签的属性中; -->
+        <a v-bind:href="link"> 点击超链接 </a> <br/><!-- 要给标签的 属性绑定值, 要使用 v-bind -->
+        
+        <!-- 2. v-bind 对 class, style 属性做了增强, 这 2 个属性是最常用的属性, 几乎是每个标签都会用到的 -->
+        <!-- 2.1. class增强:要实现这样一个效果,等效于右边的原生 html --> <!-- <span class="active text-danger">你好</span> -->
+        <!-- 步骤 1: 使用 v-bind -->
+        <!-- 步骤 2: 让 属性 class 的值由传统的 双引号包着的字符串, => 变为一个双引号之下, 再由大括号括起来的对象 -->
+        <!-- 步骤 3: 对象中每一个key 是传统的 class 属性值字符串, 后面用冒号连着一个 value, 
+                    value 是 单引号引起来的字符串类型, 该字符串来源于 vue_modules 的 data 对象的一个变量, data 对象中的该变量值 一般 是 boolean 类型,以表示该 key 是否启用 -->
+        <!-- 步骤 4: 注意中横杠 - 在对象属性名中是非法字符, 所以原 text-danger 要使用引号引起来称为: 'text-danger' -->
+        <span v-bind:class="{active:isActive, 'text-danger':hasError}">
+              你好
+        </span><br/>
+
+        <!-- 2.2. style 增强:要实现这样一个效果,等效于右边的原生 html --> <!-- <span style="color: red; font-size: 90px;">嘿呀</span> -->
+        <!-- 步骤 1: 使用 v-bind -->
+        <!-- 步骤 2: 让 属性 style 的值由传统的 双引号包着的字符串, => 变为一个双引号之下, 再由大括号括起来的对象, -->
+        <!-- 步骤 3: 对象中每一个 key 是传统的 style 属性值字符串, 后面用冒号连着一个 value , 
+                    value 是 单引号引起来的字符串类型, 该字符串来源于 vue_modules 的 data 对象的一个变量, data 对象中的该变量值是 单引号引起来的 字符串, 该值就是具体的值-->
+        <!-- 步骤 4: 注意中横杠 - 在对象属性名中是非法字符, 所以原 font-size 要使用引号引起来称为: 'font-size' -->     
+        <span v-bind:class="{active:isActive, 'text-danger':hasError}" 
+              v-bind:style="{color: colorR, 'font-size': theSize}">
+                嘿呀
+        </span><br/>
+
+
+        <!-- 3. v-bind:XXX 可以简写成 :XXX -->
+        <!-- 如上面的实例, 就可以写成如下形式 -->
+        <span :class="{active:isActive, 'text-danger':hasError}" 
+              :style="{color: colorR, 'font-size': theSize}">
+          嘿呀
+  </span><br/>
+    </div>
+
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                link: "https://www.baidu.com",
+                isActive: true,
+                hasError: true,
+                colorR: 'red',
+                theSize: '36px'
+            },
+        })
+    </script>
+</body>
+</html>

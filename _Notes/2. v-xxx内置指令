@@ -1,3 +1,4 @@
 # v-xxx 内置指令 (https://cn.vuejs.org/api/built-in-directives.html)
-1. v-test
+1. v-test, v-html
+2. v-bind
     
