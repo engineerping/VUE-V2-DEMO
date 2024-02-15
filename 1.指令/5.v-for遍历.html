@@ -28,6 +28,12 @@
                 <!-- 4. 优化细节: 无论何时遍历是,都加上 v-bind:key (简写做 :key) 属性, 来区分所遍历出的不同的行的唯一性, 从而提高 vue 渲染效率-->
             </li>
         </ul>
+
+        <ul>
+            <li v-for="(num, index) in nums" :key="index">
+                {{num}}
+            </li>
+        </ul>
         <hr/>
     </div>
     <script src="../node_modules/vue/dist/vue.js"></script>
@@ -41,7 +47,9 @@
                     { id: '003', name: '范冰冰', gender: '女', age: 24 },
                     { id: '004', name: '刘亦菲', gender: '女', age: 18 },
                     { id: '005', name: '古力娜扎', gender: '女', age: 25 }
-                ]
+                ],
+
+                nums: [1,2,2,4,4],
             },
         })
     </script>
