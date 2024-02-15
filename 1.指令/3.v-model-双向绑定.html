@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<br>
+    <!-- 3. v-model 双想绑定, 一般用于 "表单项, 自定义组件" -->
+
+    <!-- 以前演示的 v-test, v-html, v-bind 都是单向绑定 -->
+    <!-- 下面以前演示双向绑定 v-model -->
+
+    <div id="app">
+        <div>精通的语言:</div>
+            <input v-model="language" type="checkbox" value="Java"> Java<br/>
+            <input v-model="language" type="checkbox" value="PHP"> PHP <br/>
+            <input v-model="language" type="checkbox" value="Python"> Python <br/>
+            <input v-model="language" type="checkbox" value="Go"> Go <br/>
+        <!-- 
+            这里可以侧面验证双向绑定,(其直观效果也可以通过浏览器的 vue-devtool 插件查看):
+            1. 页面上'<div>精通的语言:</div>'的页面变化,引起了 vue_modules 的数据变化, 
+            2. 而vue_modules 的数据变化变化,引起了页面上'<div>选中了:</div>' 页面的变化"
+        -->
+        <div>选中了:</div>
+            {{language.join(" | ")}} <!-- 这里使用了 VUE的 插值表达式{{}}, join() 是 原生 js 的数组中的方法-->
+            <!-- 注意:原生 JS 的 模板字符串是 飘号` 表示的,格式是: `字符串 ${变量或表达式} 字符串` -->
+
+    </div>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                language: []
+            },
+        })
+    </script>
+</body>
+</html>
