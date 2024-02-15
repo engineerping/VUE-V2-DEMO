@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>1、 遍历数组 <br/>
+            语法： v-for="item in items" <br/>
+            items： 要遍历的数组， 需要在 vue 的 data 中定义好。<br/>
+            item： 迭代得到的当前正在遍历的元素 <br/>
+        </div>    
+        <ul>
+            <!-- 1. 显示 user 信息: v-for="item in " -->
+            <li v-for="(user, index) in users" v-bind:key="index"> <!-- 因为每遍历一个,想要将遍历结果写到 li 中, 所以将 v-for 写在 li 标签中 -->
+                当前行索引{{index}} : {{user.id}} --- {{user.name}} --- {{user.gender}} --- {{user.age}} <br/>
+                <!-- 2. 获取数组下标: v-for="(item, index) in items" -->
+                <!-- 3. 遍历对象:
+                    v-for="value in items"  //遍历对象时, index 为属性名, item 为属性值
+                    v-for="(item, key) in items"  //遍历对象时, key 为属性名, item 为属性值
+                    v-for="(item, key, index) in items"  //遍历对象时, index 为属性名, item 为属性值
+                -->
+                当前行的对象的信息<span v-for="(value,key,idx) in user " v-bind:key="idx">{{inx}}:{{key}}:{{value}}~~~</span> <!--注意本行的 user 来源于 li 中遍历出来的一行-->
+                <!-- 4. 优化细节: 无论何时遍历是,都加上 v-bind:key (简写做 :key) 属性, 来区分所遍历出的不同的行的唯一性, 从而提高 vue 渲染效率-->
+            </li>
+        </ul>
+        <hr/>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        let app = new Vue({
+            el: "#app",
+            data: {
+                users: [
+                    { id: '001', name: '柳岩', gender: '女', age: 21 },
+                    { id: '002', name: '张三', gender: '男', age: 18 },
+                    { id: '003', name: '范冰冰', gender: '女', age: 24 },
+                    { id: '004', name: '刘亦菲', gender: '女', age: 18 },
+                    { id: '005', name: '古力娜扎', gender: '女', age: 25 }
+                ]
+            },
+        })
+    </script>
+</body>
+
+</html>
