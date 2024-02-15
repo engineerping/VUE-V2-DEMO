@@ -118,11 +118,16 @@
         <div> 三. 按键修饰符 </div>
         <!-- 三. 按键修饰符 -->
         <input type="text" v-model="myNum"
-            @keyup.up.prevent="plusTen"
+            @keyup.up="plusTen"
             @keyup.down="minusTen" 
             @keyup.up.shift="timeTen" 
             @keyup.down.shift="divideTen" 
             @click.meta="addHandrude"><br>
+        <span>提示: 按 up 键 + shift 增加10, <br>
+              按 down 键 + shift 减少10, <br>
+              按 up 键 + shift 乘以 10, <br>
+              按 down 键 + shift 除以 10, <br>
+              按 meta 键(即: Win 的 Win键, Mac 的 cmd 键) + 鼠标左击 增加100 </span>
         
     </div>
     
