@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<div id="app">
+        <!---------------------------------------------------------------------------->
+        <div> 一. 绑定事件 </div>
+        <p>当前点赞数: {{num}}</p>
+        <!-- 一. v-on:xxx 绑定事件 -->
+
+        <!-- 1.1. 事件中可以写 js 片段 -->
+        <button v-on:click="num++">点赞</button> <!--等价于:<button v-on:click="vote">点赞</button> -->
+        
+        <!-- 1.2. 事件中可以指定回调函数,必须是 VUE 实例中定义的函数 -->
+        <button @click="against">取消点赞</button> 
+        <!--等价于: <button v-on:click="num--">取消点赞</button>  -->
+        <!-- 1.3. v-on:xxx 可以简写成 @xxx -->
+        <!--等价于: <button @click="num--">取消点赞</button>  -->
+
+        <!---------------------------------------------------------------------------->        
+        
+        
+        <hr/>
+        <br/>
+        <br/>
+        <div> 二. 事件修饰符 </div>
+        <!-- 二. 事件修饰符-->
+        <!--
+            1. stop: 阻止事件冒泡到父元素
+            2. prevent: 阻止事件的默认行为
+            3. capture: 使用事件捕获模式
+            4. self: 只有当前元素本身触发事件
+            5. once: 只执行一次,当然点击浏览器按钮刷新整个页面之后,就可以点击第二次了
+        -->
+        <div style="border: 1px solid red; padding: 20px;" v-on:click.once="hello1" > <!--如果一个事件最多只想被触发 1 次,可以加 .once-->
+            外div
+            <!--这里给内div的事件 v-on:click 添加了修饰符 ".stop" ,点击内div时,事件不会冒泡到外div -->
+            <div style="border: 1px solid blue; padding: 20px;" v-on:click.stop="hello2">
+                内div<br/>
+                <a href="https://www.baidu.com" @click.prevent.stop>加了事件修饰符.prevent后的链接将不去百度;<br/>
+                    而链接又在 内div 中, 默认情况下点击链接的事件会冒泡到内 div从而触发 内 div 的 hello2 方法, <br/>
+                    所以添加了 事件修饰符 .stop 从而阻止了事件冒泡到包裹链接的div,所以 hello2 方法没有被触发</a>
+            </div>
+        </div>
+
+        <hr/>
+        <div class></div>
+        <table>
+            <thead>
+                <tr>
+                    <th><a href="https://v2.cn.vuejs.org/v2/guide/events.html#%E4%BA%8B%E4%BB%B6%E4%BF%AE%E9%A5%B0%E7%AC%A6">Vue 事件修饰符及用法 官网 Demo </a></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <!-- 阻止单击事件继续传播 -->
+                        <a v-on:click.stop="doThis">阻止单击事件继续传播</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <!-- 提交事件不再重载页面 -->
+                        <form v-on:submit.prevent="onSubmit">提交事件不再重载页面</form>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <!-- 修饰符可以串联 -->
+                        <a v-on:click.stop.prevent="doThat">修饰符可以串联</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <!-- 只有修饰符（简写方式） -->
+                        <form v-on:submit.prevent>只有修饰符(简写方式)</form>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <!-- 添加事件监听器时使用事件捕获模式 -->
+                        <!-- 即内部元素触发的事件先在此处理，然后才交由内部元素进行处理 -->
+                        <div v-on:click.capture="doThis">添加事件监听器时使用事件捕获模式<br/>即内部元素触发的事件先在此处理，然后才交由内部元素进行处理</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <!-- 只当在 event.target 是当前元素自身时触发处理函数 -->
+                        <!-- 即事件不是从内部元素触发的 -->
+                        <div v-on:click.self="doThat">只当在 event.target 是当前元素自身时触发处理函数<br/>即事件不是从内部元素触发的</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!---------------------------------------------------------------------------->        
+        <hr/>
+        <br/>
+        <br/>
+        <div> 三. 按键修饰符 </div>
+        <!-- 三. 按键修饰符 -->
+        <input type="text" v-model="myNum"
+            @keyup.up.prevent="plusTen"
+            @keyup.down="minusTen" 
+            @keyup.up.shift="timeTen" 
+            @keyup.down.shift="divideTen" 
+            @click.meta="addHandrude"><br>
+        
+    </div>
+    
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                language: [],
+                num: 1,
+                myNum: 1
+            },
+            methods: {
+                vote() {
+                    return this.num++;
+                },
+                against() {
+                    if(this.num > 0) {
+                        return this.num--;
+                    }
+                },
+                hello1() { 
+                    alert("hello1---");
+                },
+                hello2() { 
+                    alert("hello2###");
+                },
+                plusTen() {
+                    return this.myNum += 10;
+                },
+                minusTen() {
+                    return this.myNum -= 10;
+                },
+                timeTen() {
+                    return this.myNum *= 10;
+                },
+                divideTen() {
+                    return this.myNum /= 10;
+                },
+                addHandrude() {
+                    return this.myNum *= 100;
+                }
+            },
+        })
+    </script>
+</body>
+</html>
