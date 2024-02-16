@@ -8,17 +8,13 @@
 <body>
 
     <div id="app">
-        <button v-on:click="random=Math.random()">点我用 v-else-if 改变随机数的值</button>
+        <button v-on:click="random=Math.random() * 100">点我用 v-else-if 改变随机数的值</button>
         <div>随机数的当前值是: {{random}}</div>
-
-        <h1 v-if="random >= 0.8">看到我拉?! &gt;= 0.8</h1>
-        <h1 v-else-if="random >= 0.6">看到我拉?! &gt;= 0.6</h1>
-        <h1 v-else-if="random >= 0.3">看到我拉?! &gt;= 0.3</h1>
-        <h1 v-else="random < 0.3">看到我拉?! &lt; 0.3</h1>
-
-        <hr/>
-
-        <div>随机数的当前值是: {{random}}</div>
+        
+        <h1 v-if="random >= 80"> 优秀?! &gt;= 80 </h1>
+        <h1 v-else-if="random >= 60"> 及格?! &gt;= 60 </h1>
+        <h1 v-else-if="random >= 30"> 较差?! &gt;= 30 </h1>
+        <h1 v-else="random < 30"> 你适合从事体育工作?! &lt; 30</h1>
     </div>
 
     <script src="../node_modules/vue/dist/vue.js"></script>
