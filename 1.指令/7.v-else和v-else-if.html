@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+        <button v-on:click="random=Math.random()">点我用 v-else-if 改变随机数的值</button>
+        <div>随机数的当前值是: {{random}}</div>
+
+        <h1 v-if="random >= 0.8">看到我拉?! &gt;= 0.8</h1>
+        <h1 v-else-if="random >= 0.6">看到我拉?! &gt;= 0.6</h1>
+        <h1 v-else-if="random >= 0.3">看到我拉?! &gt;= 0.3</h1>
+        <h1 v-else="random < 0.3">看到我拉?! &lt; 0.3</h1>
+
+        <hr/>
+
+        <div>随机数的当前值是: {{random}}</div>
+    </div>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                random: 1
+            }
+
+        })
+    </script>
+</body>
+</html>

@@ -16,7 +16,7 @@
         </div>    
         <ul>
             <!-- 1. 显示 user 信息: v-for="item in " -->
-            <li v-for="(user, index) in users" v-bind:key="index"> <!-- 因为每遍历一个,想要将遍历结果写到 li 中, 所以将 v-for 写在 li 标签中 -->
+            <li v-for="(user, index) in users" v-bind:key="index" v-if="user.gender='女'"> <!-- 因为每遍历一个,想要将遍历结果写到 li 中, 所以将 v-for 写在 li 标签中 -->
                 当前行索引{{index}} : {{user.id}} --- {{user.name}} --- {{user.gender}} --- {{user.age}} <br/>
                 <!-- 2. 获取数组下标: v-for="(item, index) in items" -->
                 <!-- 3. 遍历对象:
@@ -27,6 +27,7 @@
                 当前行的对象的信息<span v-for="(value,key,idx) in user " v-bind:key="idx">{{inx}}:{{key}}:{{value}}~~~</span> <!--注意本行的 user 来源于 li 中遍历出来的一行-->
                 <!-- 4. 优化细节: 无论何时遍历是,都加上 v-bind:key (简写做 :key) 属性, 用来标识每一个元素的唯一特征， 
                     这样 Vue 可以使用“就地复用” 策略有效的提高渲染的效率-->
+                <!-- 5. v-if 可以用在 v-for 中, v-if 的优先级低于 v-for, 因此 v-for 会先计算,然后再计算 v-if-->
             </li>
         </ul>
         
