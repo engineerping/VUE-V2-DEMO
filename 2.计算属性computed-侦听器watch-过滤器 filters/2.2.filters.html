@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <h1>1.用途: 过滤器 filter 常用来处理文本格式化的操作. 过滤器可以用在 2 个地方</h1>
+                1.1. 双花括号插值表达式"{{}}" <br/>
+                1.2. v-bind:xxx="yyy" 表达式<br/>
+
+            <h1>2.如何定义</h1>
+                2.1. 通过 filters 对象来定义过滤器<br/>
+                2.2. 过滤器的参数, 可以是字符串, 数字, 数组, 对象, 函数<br/>
+                2.3. 过滤器的返回值, 只能是字符串<br/>
+                2.4. 过滤器的名称, 不能和 Vue 实例中的属性重名<br/>
+                2.5. 注意: filter 在被位于 html 中使用的时候, 是属性调用,并非方法调用,因此是不带小括号的,<br/>
+                     即,如本例中: "user.gender | genderFilter" 注意这里 genderFilter, globalGenderFilter 后面都没有括号<br/>
+                
+            <h1>3.过滤器有 全局过滤器 和 局部过滤器</h1>
+
+            <hr/>
+        </div>
+        <ul>
+            <li v-for="(user, index) in userList" v-bind:key="index">
+                <!--注意这里 genderFilter, globalGenderFilter 后面都没有括号-->
+                {{user.id}} ==> {{user.name}} ==> {{user.gender == 1? "男" : "女"}} ==> {{user.gender | genderFilter}} ==> {{user.gender | globalGenderFilter}} 
+            </li>
+        </ul>
+    </div>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <script>
+        // 1. 定义一个全局过滤器
+        Vue.filter("globalGenderFilter", function(val){
+            if (val == 1) {
+                return '男~~~';
+            } else if (val == 0) {
+                return '女~~~';
+            } else {
+                return "未提供~~~"
+            }
+        }); 
+
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                userList: [
+                    { id: 1, name: "张三", age: 18, gender: 1 },
+                    { id: 2, name: "李四", age: 20, gender: 0 },
+                    { id: 3, name: "王五", age: 19, gender: 0 },
+                    { id: 3, name: "王五", age: 21, gender: 1 }
+                ]
+            },
+            // 下面这是一个 "局部过滤器"
+            filters: {
+                // 1. 通过 filters 对象来定义过滤器
+                // 2. 过滤器的参数, 可以是字符串, 数字, 数组, 对象, 函数
+                // 3. 过滤器的返回值, 只能是字符串
+                // 4. 过滤器的名称, 不能和 Vue 实例中的属性重名
+                genderFilter: function(val) {
+                    if (val == 1) {
+                        return '男###';
+                    } else if (val == 0) {
+                        return '女###';
+                    } else {
+                        return "未提供###"
+                    }
+
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            可以利用 computed 属性, 获取实时计算出来的数据 <br/>
+            computed 与 methods 的区别是 computed 的计算结果会缓存, 它是属性调用,<br/>
+            注意 html 中写的是totalPrice 而不是带括号的totalPrice()函数调用<br/>
+            <hr/>
+        </div>
+        <ul>
+            <li>书名: 西游记; 库存: {{xyjStock}}; 价格: {{xyjPrice}}; 数量: <input type="number" v-model="xyjNum"></li>
+            <li>书名: 水浒传; 库存: {{shzStock}}; 价格: {{shzPrice}}, 数量: <input type="number" v-model="shzNum"></li>
+            <li>总价: {{ total = totalPrice}}</li> <!--computed 与 methods 的区别是 computed 的计算结果会缓存, 它是属性调用,注意 html 中写的是totalPrice 而不是带括号的totalPrice()函数调用-->
+            <li>总价: {{ total = inTotal}}</li> <!--computed 与 methods 的区别是 computed 的计算结果会缓存, 它是属性调用,注意 html 中写的是totalPrice 而不是带括号的totalPrice()函数调用-->
+            <li>总价: {{ total = summary()}}</li>
+            <h1 style="color: red;" v-show="showMsg">{{msg}}</h1>
+        </ul>
+    </div>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                xyjPrice: 50,
+                shzPrice: 80,
+                xyjNum: 0,
+                shzNum: 0,
+                xyjStock: 5,
+                shzStock: 5,
+                total: 0,
+                msg: "超出库存数量",
+                showMsg: false
+            },
+            computed: { //computed 与 methods 的区别是 computed 的计算结果会缓存, 它是属性调用,注意 html 中写的是totalPrice 而不是带括号的totalPrice()函数调用
+                totalPrice: function() {
+                    return this.xyjPrice * this.xyjNum + this.shzPrice * this.shzNum; // 这几个地方的 this 不能省略
+                },
+                inTotal() { //可以将上述写法简写,这一点与 methods 相同
+                    return this.xyjPrice * this.xyjNum + this.shzPrice * this.shzNum; // 这几个地方的 this 不能省略
+                },
+            },
+            methods: {
+                summary() {
+                    return this.xyjPrice * this.xyjNum  + this.shzPrice * this.shzNum; // 这几个地方的 this 不能省略
+                }
+            },
+            watch: {
+                xyjNum: function(newValue, oldValue) {
+                    if (newValue > this.xyjStock) {
+                        this.showMsg = true;
+                        alert("超过库存了~~~~修改后的值是" + newValue + "<==" + "修改前的值是" + oldValue);
+                    }
+                },
+                shzNum: function(newValue, oldValue) {
+                    if (newValue > this.shzStock) {
+                        this.showMsg = true;
+                        alert("超过库存了~~~~修改后的值是" + newValue + "<==" + "修改前的值是" + oldValue);
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
