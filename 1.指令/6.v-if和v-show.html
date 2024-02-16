@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        1. v-if， 顾名思义， 条件判断。 当得到结果为 true 时， 所在的元素才会被 "渲染"。
+        2. v-show， 当得到结果为 true 时， 所在的元素才会被 "显示"。
+
+        语法： v-if="布尔表达式", v-show="布尔表达式",
+     -->
+    
+     <div id="app">
+        <button v-on:click="show = !show">切换显示</button>
+
+        <!--  v-if: 不显示时等价于 "空的html注释" -->
+        <h1 v-if="show">v-if="Boolean表达式": 不显示时等价于 "空的html注释"</h1>
+
+        <!-- v-show: 不显示时等价于 <h1 style="display: none;"> 嘿嘿 </h1> -->
+        <h1 v-show="show">v-show="Boolean表达式": 不显示时是加上了属性 style="display: none;"</h1>
+    </div>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                show: true
+            }
+
+        })
+    </script>
+
+</body>
+</html>

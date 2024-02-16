@@ -25,10 +25,15 @@
                     v-for="(item, key, index) in items"  //遍历对象时, index 为属性名, item 为属性值
                 -->
                 当前行的对象的信息<span v-for="(value,key,idx) in user " v-bind:key="idx">{{inx}}:{{key}}:{{value}}~~~</span> <!--注意本行的 user 来源于 li 中遍历出来的一行-->
-                <!-- 4. 优化细节: 无论何时遍历是,都加上 v-bind:key (简写做 :key) 属性, 来区分所遍历出的不同的行的唯一性, 从而提高 vue 渲染效率-->
+                <!-- 4. 优化细节: 无论何时遍历是,都加上 v-bind:key (简写做 :key) 属性, 用来标识每一个元素的唯一特征， 
+                    这样 Vue 可以使用“就地复用” 策略有效的提高渲染的效率-->
             </li>
         </ul>
-
+        
+        <div>
+            优化细节: 无论何时遍历是,都加上 v-bind:key (简写做 :key) 属性, 用来标识每一个元素的唯一特征，<br/>
+            这样 Vue 可以使用“就地复用” 策略有效的提高渲染的效率
+        </div>
         <ul>
             <li v-for="(num, index) in nums" :key="index">
                 {{num}}
