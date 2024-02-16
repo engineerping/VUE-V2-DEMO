@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <h1>Vue 里组件是什么？</h1>
+            一个组件可以包含一些 html, js, css, 这些都可以看作是组件的一部分。<br/><br/>
+            
+            在大型应用开发的时候， 页面可以划分成很多部分。 往往不同的页面， 也会有相同的部分。<br/>
+            例如可能会有相同的头部导航。<br/>
+            但是如果每个页面都独自开发， 这无疑增加了我们开发的成本。 所以我们会把页面的不同部 <br/>
+            分拆分成独立的组件， 然后在不同页面就可以共享这些组件， 避免重复开发。<br/><br/>
+    
+            <h2 style="color: red;">在 vue 里， 所有的 vue 实例都是组件</h2>
+        </div>
+        <h1>0.非组件的传统写法</h1>
+        <button type="button" v-on:click="count++">我被点击了 {{count}} 次</button> 
+        <br/>
+
+        <h1>1.全局声明注册一个组件, 全局都能使用</h1>
+        <p>1.组件中用 template 代替传统的 el, 这样,组件里的 "数据" 与 template 所代表的 html绑定, 而不是与外部的 el 所代表的 html 所绑定.</p>
+        <p>2.注意:组件的 data() 是一个函数 而不是一个"对象", 这样每次使用一个组件, 其数据都是来自于 调用该 data() 方法返回的一个"新对象". 因此组件与组件之间的数据才是独立的,而不是共享的.</p>
+        <counter></counter> <!-- counter 是自定义的组件名-->
+        <counter></counter>
+
+        <br/>
+        
+        <h1>2.局部声明一个组件, 只能在当前 Vue 实例 中 el 所代表的 htnl 中使用 </h1>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+
+
+
+    </div>
+
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <script>
+
+        //1. 全局声明并注册一个组件, 全局组件需要一个名字, 在引用该组件的时候使用
+        Vue.component("counter", { // counter 是自定义的组件名称
+            //  1.组件中用 template 代替传统的 el, 这样,组件里的 "数据" 与 template 所代表的 html绑定, 而不是与外部的 el 所代表的 html 所绑定.
+            template: `<button type="button" v-on:click="count++">我被点击了 {{count}} 次</button>`,
+            // 2.注意:组件的 data() 是一个函数 而不是一个"对象", 这样每次使用一个组件, 其数据都是来自于 调用该 data() 方法返回的一个"新对象". 因此组件与组件之间的数据才是独立的,而不是共享的.
+            data() { 
+                return {
+                    count: 1
+                }
+            },
+        });
+
+
+        //2. 局部声明一个组件, 其实就是声明了一个常规的对象
+        const buttonCounter = {
+            //  1.组件中用 template 代替传统的 el, 这样,组件里的 "数据" 与 template 所代表的 html绑定, 而不是与外部的 el 所代表的 html 所绑定.
+            template: `<button type="button" v-on:click="count++">我被点击了 {{count}} 次</button>`,
+            // 2.注意:组件的 data() 是一个函数 而不是一个"对象", 这样每次使用一个组件, 其数据都是来自于 调用该 data() 方法返回的一个"新对象". 因此组件与组件之间的数据才是独立的,而不是共享的.
+            data() { 
+                return {
+                    count: 1
+                }
+            },
+        }
+
+
+        //0.非组件的传统写法
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                count: 1
+            },
+            components: { //这里写 el 所代表的 html 里, 要使用哪些 "局部组件"
+                "button-counter": buttonCounter, // 注意:"button-counter" 是自定义的局部组件的名称
+
+            }
+        });
+    </script>
+</body>
+</html>
