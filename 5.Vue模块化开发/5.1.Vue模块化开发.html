@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id = "app">
+        <p>{{msg}}:</p>
+        <p><a href="https://github.com/engineerping/vue-business-develop-demo">{{myLink}}</a></p>
+        <p>{{reason}}</p>
+    </div>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                msg: "Vue 模块化开发见另一个 github repository",
+                myLink: "https://github.com/engineerping/vue-business-develop-demo",
+                reason: "以使本工程保持简洁."
+            }
+        });
+    </script>
+</body>
+</html>
